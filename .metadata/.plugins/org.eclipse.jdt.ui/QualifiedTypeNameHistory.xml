@@ -4,4 +4,6 @@
     <fullyQualifiedTypeName name="chapter3.B_VariableMethod.MonitorSize"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="chapter4.A_AccessModifier.Example4"/>
+    <fullyQualifiedTypeName name="chapter4.A_Modifier.Example1"/>
 </qualifiedTypeNameHistroy>

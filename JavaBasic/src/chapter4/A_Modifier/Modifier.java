@@ -51,9 +51,9 @@ abstract class Example3 {
 public class Modifier {
 
 	public static void main(String[] args) {
-		Example4 example4 = new Example4();
-		example4.number4 = 10;
-		example4.function4();
+//		Example4 example4 = new Example4();
+//		example4.number4 = 10;
+//		example4.function4();
 		
 		Example1 example1 = new Example1();
 		example1.number1 = 10;
