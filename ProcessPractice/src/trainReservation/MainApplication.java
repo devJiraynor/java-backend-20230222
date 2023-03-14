@@ -25,6 +25,31 @@ public class MainApplication {
 				System.out.println("모두 입력하세요.");
 				continue;
 			}
+			
+			List<Train> possibleTrains = new ArrayList<>();
+			
+			for (Train train: trains) {
+				List<StopStation> stopStations = train.getStopStations();
+				
+				int departureIndex = -1;
+				
+				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
+					if (dto.getDepartureStation().equals(stopStations.get(stopStationIndex).getStationName())) {
+						departureIndex = stopStationIndex;
+						break;
+					}
+				}
+				
+				if (departureIndex == -1) continue;
+				
+				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
+					if (dto.getArrivalStation().equals(stopStations.get(stopStationIndex).getStationName())) {
+						if (departureIndex < stopStationIndex) {
+							possibleTrains.add(train);
+						}
+					}
+				}
+			}
 
 			System.out.println(dto.toString());
 		}
