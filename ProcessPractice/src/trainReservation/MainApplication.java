@@ -1,5 +1,7 @@
 package trainReservation;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +16,8 @@ public class MainApplication {
 	
 	private static List<Train> trains = new ArrayList<Train>();
 	private static List<Cost> costs = new ArrayList<Cost>();
+	
+	private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
 	public static void main(String[] args) {
 		initData();
@@ -21,37 +25,36 @@ public class MainApplication {
 		while (true) {
 			GetTrainListDto dto = new GetTrainListDto();
 			
-			if (dto.getArrivalStation().isBlank() || dto.getDepartureStation().isBlank() || dto.getDepartureTime().isBlank()) {
+			LocalTime departureTime = null;
+			
+			if (dto.isEmpty()) {
 				System.out.println("모두 입력하세요.");
+				continue;
+			}
+			
+			try {
+				departureTime = LocalTime.parse(dto.getDepartureTime(), timeFormatter);
+			} catch(Exception exception) {
+				System.out.println("잘못된 시간입니다.");
+				continue;
+			}
+			
+			if (dto.getNumberOfPeople() <= 0) {
+				System.out.println("잘못된 인원입니다.");
+				continue;
+			}
+			
+			if (dto.isEqualStation()) {
+				System.out.println("출발역과 도착역이 같습니다.");
 				continue;
 			}
 			
 			List<Train> possibleTrains = new ArrayList<>();
 			
 			for (Train train: trains) {
-				List<StopStation> stopStations = train.getStopStations();
 				
-				int departureIndex = -1;
-				
-				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
-					if (dto.getDepartureStation().equals(stopStations.get(stopStationIndex).getStationName())) {
-						departureIndex = stopStationIndex;
-						break;
-					}
-				}
-				
-				if (departureIndex == -1) continue;
-				
-				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
-					if (dto.getArrivalStation().equals(stopStations.get(stopStationIndex).getStationName())) {
-						if (departureIndex < stopStationIndex) {
-							possibleTrains.add(train);
-						}
-					}
-				}
 			}
-
-			System.out.println(dto.toString());
+			
 		}
 	}
 	

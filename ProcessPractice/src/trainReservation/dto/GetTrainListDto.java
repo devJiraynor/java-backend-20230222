@@ -69,7 +69,25 @@ public class GetTrainListDto {
 				+ ", departureTime=" + departureTime + ", numberOfPeople=" + numberOfPeople + "]";
 	}
 	
+	public boolean isEmpty() {
+		return this.departureStation.isBlank() ||
+				this.arrivalStation.isBlank() ||
+				this.departureTime.isBlank();
+	}
+	
+	public boolean isEqualStation() {
+		return this.departureStation.equals(this.arrivalStation);
+	}
+	
 }
+
+
+
+
+
+
+
+
 
 
 
