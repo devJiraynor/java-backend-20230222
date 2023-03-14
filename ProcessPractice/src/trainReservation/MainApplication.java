@@ -53,7 +53,48 @@ public class MainApplication {
 			
 			for (Train train: trains) {
 				
+				List<StopStation> stopStations = train.getStopStations();
+				int sameStationIndex = -1;
+				
+				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
+					String stopStationName = stopStations.get(stopStationIndex).getStationName();
+					
+					if (!dto.isEqualDepartureStation(stopStationName)) {
+						continue;
+					}
+					
+					LocalTime stationDepartureTime = LocalTime.parse(dto.getDepartureTime(), timeFormatter);
+					
+					if (stationDepartureTime.isBefore(departureTime)) {
+						break;
+					}
+					
+					sameStationIndex = stopStationIndex;
+					break;
+				}
+				
+				if (sameStationIndex == -1) {
+					continue;
+				}
+				
+				for (int stopStationIndex = 0; stopStationIndex < stopStations.size(); stopStationIndex++) {
+					String stationName = stopStations.get(stopStationIndex).getStationName();
+					
+					if (!dto.isEqualArrivalStation(stationName)) {
+						continue;
+					}
+					
+					if (stopStationIndex <= sameStationIndex) {
+						break;
+					}
+					
+					possibleTrains.add(train);
+					break;
+				}
+				
 			}
+			
+			System.out.println(possibleTrains.toString());
 			
 		}
 	}
