@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trainReservation.dto.GetTrainListDto;
+import trainReservation.dto.PostReservationDto;
 import trainReservation.entity.Cost;
+import trainReservation.entity.ReservationInfo;
 import trainReservation.entity.Seat;
 import trainReservation.entity.StopStation;
 import trainReservation.entity.Train;
@@ -76,6 +78,14 @@ public class ReservationService {
 		}
 		
 		return possibleTrains;
+		
+	}
+	
+	public ReservationInfo postReservation(PostReservationDto dto) {
+		
+		Train train = null;
+		
+		return null;
 		
 	}
 	
