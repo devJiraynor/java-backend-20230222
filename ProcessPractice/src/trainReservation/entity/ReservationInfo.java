@@ -67,6 +67,14 @@ public class ReservationInfo {
 	public int getTotalCost() {
 		return totalCost;
 	}
+
+	@Override
+	public String toString() {
+		return "ReservationInfo [reservationNumber=" + reservationNumber + ", trainNumber=" + trainNumber + ", seats="
+				+ seats + ", departureStation=" + departureStation + ", departureTime=" + departureTime
+				+ ", arrivalStation=" + arrivalStation + ", arrivalTime=" + arrivalTime + ", totalCost=" + totalCost
+				+ "]";
+	}
 	
 }
 

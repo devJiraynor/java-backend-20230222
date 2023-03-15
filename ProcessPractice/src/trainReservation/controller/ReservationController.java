@@ -6,6 +6,7 @@ import java.util.List;
 
 import trainReservation.dto.GetTrainListDto;
 import trainReservation.dto.PostReservationDto;
+import trainReservation.entity.ReservationInfo;
 import trainReservation.entity.Train;
 import trainReservation.service.ReservationService;
 
@@ -55,7 +56,17 @@ public class ReservationController {
 			
 			
 			
-			PostReservationDto postReservationDto = new PostReservationDto(getTrainListDto.getNumberOfPeople());
+			ReservationInfo reservationInfo = null;
+			while (true) {
+				
+				PostReservationDto postReservationDto = new PostReservationDto(getTrainListDto.getNumberOfPeople());
+				reservationInfo = reservationService.postReservation(postReservationDto, getTrainListDto);
+				if (reservationInfo == null) continue;
+				break;
+				
+			}
+			System.out.println(reservationInfo.toString());
+			
 			
 		}
 	}
