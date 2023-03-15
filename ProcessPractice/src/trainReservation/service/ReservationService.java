@@ -81,11 +81,72 @@ public class ReservationService {
 		
 	}
 	
-	public ReservationInfo postReservation(PostReservationDto dto) {
+	public ReservationInfo postReservation(PostReservationDto postReservationDto, GetTrainListDto getTrainListDto) {
 		
 		Train train = null;
 		
-		return null;
+		for (Train trainItem: trains) {
+			if (postReservationDto.isEqualTrainNumber(trainItem.getTrainNumber())) {
+				train = trainItem;
+				break;
+			}
+		}
+		
+		if (train == null) {
+			return null;
+		}
+		
+		boolean designationState = true;
+		List<Seat> seats = train.getSeats();
+		List<String> inputSeatNumbers = postReservationDto.getSteats();
+		
+		for (int index = 0; index < seats.size(); index++) {
+			
+			Seat seat = seats.get(index);
+			
+			for (String seatNumber: inputSeatNumbers) {
+				if (!seat.getSeatNumber().equals(seatNumber)) {
+					continue;
+				}
+				if (seat.isSeatStatus()) {
+					designationState = false;
+					break;
+				}
+				seat.setSeatStatus(true);
+				break;
+			}
+			
+			if (!designationState) break;
+			
+		}
+		
+		if (!designationState) return null;
+		
+		int totalCost = 0;
+		for (Cost cost: costs) {
+			
+			boolean isEqualDepartureStation = 
+					getTrainListDto.isEqualDepartureStation(cost.getDepartureStation());
+			boolean isEqualArrivalStation =
+					getTrainListDto.isEqualArrivalStation(cost.getArrivalStation());
+			
+			if (!isEqualDepartureStation || !isEqualArrivalStation) continue;
+			totalCost += cost.getAmount();
+			break;
+			
+		}
+		
+		ReservationInfo reservationInfo = new ReservationInfo(
+				postReservationDto.getTrainNumber(),
+				postReservationDto.getSteats(),
+				getTrainListDto.getDepartureStation(),
+				"",
+				getTrainListDto.getArrivalStation(),
+				"",
+				totalCost
+		);
+		
+		return reservationInfo;
 		
 	}
 	

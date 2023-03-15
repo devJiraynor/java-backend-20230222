@@ -64,6 +64,10 @@ public class PostReservationDto {
 		return "PostReservationDto [trainNumber=" + trainNumber + ", steats=" + steats + "]";
 	}
 	
+	public boolean isEqualTrainNumber(String trainNumber) {
+		return this.trainNumber.equals(trainNumber);
+	}
+	
 }
 
 
