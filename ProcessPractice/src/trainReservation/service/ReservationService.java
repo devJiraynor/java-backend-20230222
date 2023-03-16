@@ -140,23 +140,19 @@ public class ReservationService {
 	}
 	
 	public ReservationInfo getReservation(GetReservationDto dto) {
-		
 		ReservationInfo reservationInfo = null;
 		String reservationNumber = dto.getReservationNumber();
 		
 		for (ReservationInfo item: reservations) {
-			
 			boolean isEqualReservationNumber =
 					reservationNumber.equals(item.getReservationNumber());
 			if (!isEqualReservationNumber) continue;
 			
 			reservationInfo = item;
 			break;
-			
 		}
 		
 		return reservationInfo;
-		
 	}
 	
 	private static void initData() {

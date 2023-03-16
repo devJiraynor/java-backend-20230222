@@ -73,13 +73,10 @@ public class ReservationController {
 			System.out.println(reservationInfo.toString());
 			break;
 		}
-		
 	}
 	
 	public void getReservation() {
-		
 		while(true) {
-			
 			getReservationDto = new GetReservationDto();
 			String reservationNumber = getReservationDto.getReservationNumber();
 			
@@ -91,10 +88,12 @@ public class ReservationController {
 			ReservationInfo reservationInfo = 
 					reservationService.getReservation(getReservationDto);
 			
-			System.out.println(reservationInfo.toString());
+			String message = 
+					reservationInfo == null ? "해당하는 예약번호가 없습니다."
+											: reservationInfo.toString();
+			System.out.println(message);
 			break;
 		}
-		
 	}
 
 }
