@@ -86,6 +86,18 @@ public class SignUpDto {
 				+ ", addressDetail=" + addressDetail + "]";
 	}
 	
+	public boolean validate() {
+		boolean result = 
+				this.email.isBlank() || 
+				this.password.isBlank() ||
+				this.passwordCheck.isBlank() ||
+				this.nickname.isBlank() ||
+				this.phoneNumber.isBlank() ||
+				this.address.isBlank() ||
+				this.addressDetail.isBlank();
+		return result;
+	}
+	
 }
 
 

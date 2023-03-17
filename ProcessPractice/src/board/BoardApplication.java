@@ -37,7 +37,12 @@ public class BoardApplication {
 				System.out.print("상세 주소 : ");
 				dto.setAddressDetail(scanner.nextLine());
 				
+				// System.out.println(dto.toString());
+				
 				usercontroller.signUp(dto);
+				break;
+			default:
+				System.out.println("404 Not Found");
 			
 			}
 			
