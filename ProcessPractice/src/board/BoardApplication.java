@@ -2,12 +2,14 @@ package board;
 
 import java.util.Scanner;
 
+import board.common.constant.HttpStatus;
 import board.controller.UserController;
+import board.dto.request.user.SignInDto;
 import board.dto.request.user.SignUpDto;
 
 public class BoardApplication {
 	
-	private static UserController usercontroller = new UserController();
+	private static UserController userController = new UserController();
 
 	public static void main(String[] args) {
 		
@@ -21,28 +23,41 @@ public class BoardApplication {
 			switch(endPoint) {
 			
 			case "POST /sign-up":
-				SignUpDto dto = new SignUpDto();
+				SignUpDto signUpDto = new SignUpDto();
 				System.out.print("이메일 주소 : ");
-				dto.setEmail(scanner.nextLine());
+				signUpDto.setEmail(scanner.nextLine());
 				System.out.print("비밀번호 : ");
-				dto.setPassword(scanner.nextLine());
+				signUpDto.setPassword(scanner.nextLine());
 				System.out.print("비밀번호 확인 : ");
-				dto.setPasswordCheck(scanner.nextLine());
+				signUpDto.setPasswordCheck(scanner.nextLine());
 				System.out.print("닉네임 : ");
-				dto.setNickname(scanner.nextLine());
+				signUpDto.setNickname(scanner.nextLine());
 				System.out.print("휴대전화 번호 : ");
-				dto.setPhoneNumber(scanner.nextLine());
+				signUpDto.setPhoneNumber(scanner.nextLine());
 				System.out.print("주소 : ");
-				dto.setAddress(scanner.nextLine());
+				signUpDto.setAddress(scanner.nextLine());
 				System.out.print("상세 주소 : ");
-				dto.setAddressDetail(scanner.nextLine());
+				signUpDto.setAddressDetail(scanner.nextLine());
 				
-				// System.out.println(dto.toString());
+				// System.out.println(signUpDto.toString());
 				
-				usercontroller.signUp(dto);
+				userController.signUp(signUpDto);
+				break;
+			
+			case "POST /sign-in":
+				SignInDto signInDto = new SignInDto();
+				System.out.print("이메일 주소 : ");
+				signInDto.setEmail(scanner.nextLine());
+				System.out.print("비밀번호 : ");
+				signInDto.setPassword(scanner.nextLine());
+				
+				// System.out.println(signInDto.toString());
+				
+				userController.signIn(signInDto);
+				
 				break;
 			default:
-				System.out.println("404 Not Found");
+				System.out.println(HttpStatus.NOT_FOUND);
 			
 			}
 			
