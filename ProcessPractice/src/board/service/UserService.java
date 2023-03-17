@@ -37,11 +37,22 @@ public class UserService {
 	}
 	
 	public ResponseDto<SignInResponseDto> signIn(SignInDto dto) {
-		
 		SignInResponseDto data = null;
 		
-		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
+		String email = dto.getEmail();
+		String password = dto.getPassword();
 		
+		User user = userRepository.findByEmail(email);
+		if (user == null)
+			return new ResponseDto<>(false, ResponseMessage.FAIL_SIGN_IN, null);
+		
+		boolean isEqualPassword = user.getPassword().equals(password);
+		if (!isEqualPassword)
+			return new ResponseDto<>(false, ResponseMessage.FAIL_SIGN_IN, null);
+		
+		data = new SignInResponseDto(user);
+		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
+
 	}
 	
 }
