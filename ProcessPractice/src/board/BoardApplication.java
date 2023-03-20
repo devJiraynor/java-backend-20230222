@@ -5,6 +5,7 @@ import java.util.Scanner;
 import board.common.constant.HttpStatus;
 import board.controller.BoardController;
 import board.controller.UserController;
+import board.dto.request.board.PostBoardDto;
 import board.dto.request.user.SignInDto;
 import board.dto.request.user.SignUpDto;
 import board.repository.BoardRepository;
@@ -17,6 +18,7 @@ public class BoardApplication {
 	
 	private static final String SIGN_UP = "POST /sign-up";
 	private static final String SIGN_IN = "POST /sign-in";
+	private static final String POST_BOARD = "POST /board";
 	
 	public static void main(String[] args) {
 		
@@ -63,6 +65,19 @@ public class BoardApplication {
 				userController.signIn(signInDto);
 				
 				break;
+			case POST_BOARD:
+				PostBoardDto postBoardDto = new PostBoardDto();
+				System.out.print("제목 : ");
+				postBoardDto.setTitle(scanner.nextLine());
+				System.out.print("내용 : ");
+				postBoardDto.setContent(scanner.nextLine());
+				System.out.print("이미지 : ");
+				postBoardDto.setBoardImageUrl(scanner.nextLine());
+				System.out.print("작성자 이메일 : ");
+				postBoardDto.setWriterEmail(scanner.nextLine());
+				
+				
+			
 			default:
 				System.out.println(HttpStatus.NOT_FOUND);
 			}

@@ -1,5 +1,6 @@
 package board.controller;
 
+import board.dto.request.board.PostBoardDto;
 import board.service.BoardService;
 
 public class BoardController {
@@ -9,5 +10,16 @@ public class BoardController {
 	public BoardController () {
 		boardService = new BoardService();
 	}
+	
+	public void postBoard(PostBoardDto dto) {
+		
+	}
 
 }
+
+
+
+
+
+
+
