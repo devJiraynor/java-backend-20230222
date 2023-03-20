@@ -1,8 +1,11 @@
 package board.service;
 
+import java.util.List;
+
 import board.common.constant.ResponseMessage;
 import board.dto.request.board.PostBoardDto;
 import board.dto.response.ResponseDto;
+import board.dto.response.board.GetBoardListResponseDto;
 import board.dto.response.board.PostBoardResponseDto;
 import board.entity.Board;
 import board.entity.User;
@@ -34,6 +37,17 @@ public class BoardService {
 		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
 	}
 
+	public ResponseDto<List<GetBoardListResponseDto>> getBoardList() {
+		
+		List<GetBoardListResponseDto> data = null;
+		
+		List<Board> boardList = boardRepository.findBy();
+		
+		data = GetBoardListResponseDto.copyList(boardList);
+		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
+		
+	}
+	
 }
 
 

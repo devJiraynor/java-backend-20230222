@@ -1,8 +1,11 @@
 package board.controller;
 
+import java.util.List;
+
 import board.common.constant.HttpStatus;
 import board.dto.request.board.PostBoardDto;
 import board.dto.response.ResponseDto;
+import board.dto.response.board.GetBoardListResponseDto;
 import board.dto.response.board.PostBoardResponseDto;
 import board.service.BoardService;
 
@@ -27,6 +30,22 @@ public class BoardController {
 		System.out.println(response.toString());
 	}
 
+	public void getBoardList() {
+		ResponseDto<List<GetBoardListResponseDto>> response = boardService.getBoardList();
+		System.out.println(response.toString());
+	}
+
+	public void getBoard(int boardNumber) {
+		
+		if (boardNumber <= 0) {
+			System.out.println(HttpStatus.BAD_REQUEST);
+			return;
+		}
+		ResponseDto<GetBoardResponseDto> response = 
+				boardService.getBoard(boardNumber);
+		System.out.println(response.toString());
+		
+	}
 }
 
 

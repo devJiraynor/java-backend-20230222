@@ -18,7 +18,15 @@ public class BoardApplication {
 	
 	private static final String SIGN_UP = "POST /sign-up";
 	private static final String SIGN_IN = "POST /sign-in";
+	
 	private static final String POST_BOARD = "POST /board";
+	
+	private static final String GET_BOARD = "GET /board";
+	private static final String GET_BOARD_LIST = "GET /board/list";
+	
+	private static final String PATCH_BOARD = "PATCH /board";
+	
+	private static final String DELETE_BOARD = "DELETE /board";
 	
 	public static void main(String[] args) {
 		
@@ -78,6 +86,25 @@ public class BoardApplication {
 				
 				boardController.postBoard(postBoardDto);
 				break;
+				
+			case GET_BOARD_LIST: 
+				
+				boardController.getBoardList();
+				break;
+				
+			case GET_BOARD:
+				
+				int boardNumber = 0;
+				
+				try {
+					System.out.print("게시물 번호 : ");
+					boardNumber = scanner.nextInt();
+				} catch (Exception exception) {
+					exception.printStackTrace();
+					continue;
+				}
+				
+				boardController.getBoard(boardNumber);
 			
 			default:
 				System.out.println(HttpStatus.NOT_FOUND);

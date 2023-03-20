@@ -16,6 +16,10 @@ public class BoardRepository {
 		return board;
 	}
 	
+	public List<Board> findBy() {
+		return boardTable;
+	}
+	
 }
 
 
