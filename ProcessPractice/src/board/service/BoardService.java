@@ -6,6 +6,7 @@ import board.common.constant.ResponseMessage;
 import board.dto.request.board.PostBoardDto;
 import board.dto.response.ResponseDto;
 import board.dto.response.board.GetBoardListResponseDto;
+import board.dto.response.board.GetBoardResponseDto;
 import board.dto.response.board.PostBoardResponseDto;
 import board.entity.Board;
 import board.entity.User;
@@ -44,6 +45,18 @@ public class BoardService {
 		List<Board> boardList = boardRepository.findBy();
 		
 		data = GetBoardListResponseDto.copyList(boardList);
+		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
+		
+	}
+	
+	public ResponseDto<GetBoardResponseDto> getBoard(int boardNumber) {
+		
+		GetBoardResponseDto data = null;
+		
+		Board board = boardRepository.findByBoardNumber(boardNumber);
+		if (board == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_BOARD, null);
+		
+		data = new GetBoardResponseDto(board);
 		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
 		
 	}
