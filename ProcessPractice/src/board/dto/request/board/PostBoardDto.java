@@ -55,11 +55,15 @@ public class PostBoardDto {
 	}
 	
 	public boolean vaild() {
-		
+		boolean result = 
+				this.title.isBlank() ||
+				this.content.isBlank();
+		return result;
 	}
 	
 	public boolean auth() {
-		
+		boolean result = this.writerEmail.isBlank();
+		return result;
 	}
 	
 }

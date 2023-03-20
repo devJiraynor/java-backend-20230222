@@ -76,7 +76,8 @@ public class BoardApplication {
 				System.out.print("작성자 이메일 : ");
 				postBoardDto.setWriterEmail(scanner.nextLine());
 				
-				
+				boardController.postBoard(postBoardDto);
+				break;
 			
 			default:
 				System.out.println(HttpStatus.NOT_FOUND);
