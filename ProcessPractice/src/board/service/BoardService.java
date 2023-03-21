@@ -88,7 +88,6 @@ public class BoardService {
 	}
 
 	public ResponseDto<List<DeleteBoardResponseDto>> deleteBoard(int boardNumber, String email) {
-		
 		List<DeleteBoardResponseDto> data = null;
 		
 		User user = userRepository.findByEmail(email);
@@ -98,10 +97,11 @@ public class BoardService {
 		if (board == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_BOARD, null);
 		if (!board.getWriterEmail().equals(email)) return new ResponseDto<>(false, ResponseMessage.NOT_PERMISSION, null);
 		
+		boardRepository.deleteByBoardNumber(boardNumber);
 		
-		
+		List<Board> boardList = boardRepository.findBy();
+		data = DeleteBoardResponseDto.copyList(boardList);
 		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
-		
 	}
 }
 

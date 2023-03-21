@@ -94,9 +94,7 @@ public class BoardApplication {
 				break;
 				
 			case GET_BOARD:
-				
 				int boardNumber = 0;
-				
 				try {
 					System.out.print("게시물 번호 : ");
 					boardNumber = scanner.nextInt();
@@ -104,56 +102,54 @@ public class BoardApplication {
 					exception.printStackTrace();
 					continue;
 				}
-				
 				boardController.getBoard(boardNumber);
 				break;
-			
 			case PATCH_BOARD:
-				PatchBoardDto patchBoardDto = new PatchBoardDto();
-				try {
-					System.out.print("게시물 번호 : ");
-					String patchBoardNumber = scanner.nextLine();
-					patchBoardDto.setBoardNumber(Integer.parseInt(patchBoardNumber));
-					System.out.print("제목 : ");
-					patchBoardDto.setTitle(scanner.nextLine());
-					System.out.print("내용 : ");
-					patchBoardDto.setContent(scanner.nextLine());
-					System.out.print("이미지 : ");
-					patchBoardDto.setBoardImageUrl(scanner.nextLine());
-					System.out.print("이메일 : ");
-					patchBoardDto.setEmail(scanner.nextLine());
-				} catch (Exception exception) {
-					exception.printStackTrace();
-					continue;
-				}
-				
-				boardController.patchBoard(patchBoardDto);
-				
+				patchBoard();
 				break;
-				
 			case DELETE_BOARD:
 				int deleteBoardNumber = 0;
 				String deleteEmail = null;
 				try {
-					
+					System.out.print("게시물 번호 : ");
 					deleteBoardNumber = Integer.parseInt(scanner.nextLine());
+					System.out.print("이메일 : ");
 					deleteEmail = scanner.nextLine();
-					
 				} catch (Exception exception) {
 					exception.printStackTrace();
 					continue;
 				}
-				
 				boardController.deleteBoard(deleteBoardNumber, deleteEmail);
-				
 				break;
-				
 			default:
 				System.out.println(HttpStatus.NOT_FOUND);
 			}
 			
 		}
 		
+	}
+	
+	private static void patchBoard() {
+		Scanner scanner = new Scanner(System.in);
+		try {
+			PatchBoardDto patchBoardDto = new PatchBoardDto();
+			
+			System.out.print("게시물 번호 : ");
+			String patchBoardNumber = scanner.nextLine();
+			patchBoardDto.setBoardNumber(Integer.parseInt(patchBoardNumber));
+			System.out.print("제목 : ");
+			patchBoardDto.setTitle(scanner.nextLine());
+			System.out.print("내용 : ");
+			patchBoardDto.setContent(scanner.nextLine());
+			System.out.print("이미지 : ");
+			patchBoardDto.setBoardImageUrl(scanner.nextLine());
+			System.out.print("이메일 : ");
+			patchBoardDto.setEmail(scanner.nextLine());
+			
+			boardController.patchBoard(patchBoardDto);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 }
