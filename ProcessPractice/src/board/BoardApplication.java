@@ -112,8 +112,8 @@ public class BoardApplication {
 				PatchBoardDto patchBoardDto = new PatchBoardDto();
 				try {
 					System.out.print("게시물 번호 : ");
-					String boardNumberString = scanner.nextLine();
-					patchBoardDto.setBoardNumber(Integer.parseInt(boardNumberString));
+					String patchBoardNumber = scanner.nextLine();
+					patchBoardDto.setBoardNumber(Integer.parseInt(patchBoardNumber));
 					System.out.print("제목 : ");
 					patchBoardDto.setTitle(scanner.nextLine());
 					System.out.print("내용 : ");
@@ -128,6 +128,23 @@ public class BoardApplication {
 				}
 				
 				boardController.patchBoard(patchBoardDto);
+				
+				break;
+				
+			case DELETE_BOARD:
+				int deleteBoardNumber = 0;
+				String deleteEmail = null;
+				try {
+					
+					deleteBoardNumber = Integer.parseInt(scanner.nextLine());
+					deleteEmail = scanner.nextLine();
+					
+				} catch (Exception exception) {
+					exception.printStackTrace();
+					continue;
+				}
+				
+				boardController.deleteBoard(deleteBoardNumber, deleteEmail);
 				
 				break;
 				

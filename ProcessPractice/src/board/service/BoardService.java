@@ -6,6 +6,7 @@ import board.common.constant.ResponseMessage;
 import board.dto.request.board.PatchBoardDto;
 import board.dto.request.board.PostBoardDto;
 import board.dto.response.ResponseDto;
+import board.dto.response.board.DeleteBoardResponseDto;
 import board.dto.response.board.GetBoardListResponseDto;
 import board.dto.response.board.GetBoardResponseDto;
 import board.dto.response.board.PatchBoardResponseDto;
@@ -68,10 +69,44 @@ public class BoardService {
 		
 		PatchBoardResponseDto data = null;
 		
-		return new ResponseDto(true, ResponseMessage.SUCCESS, data);
+		String email = dto.getEmail();
+		int boardNumber = dto.getBoardNumber();
+		
+		User user = userRepository.findByEmail(email);
+		if (user == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_USER, null);
+		
+		Board board = boardRepository.findByBoardNumber(boardNumber);
+		if (board == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_BOARD, null);
+		if (!board.getWriterEmail().equals(email)) return new ResponseDto<>(false, ResponseMessage.NOT_PERMISSION, null);
+		
+		board.patch(dto);
+		boardRepository.save(board);
+		
+		data = new PatchBoardResponseDto(board);
+		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
+		
+	}
+
+	public ResponseDto<List<DeleteBoardResponseDto>> deleteBoard(int boardNumber, String email) {
+		
+		List<DeleteBoardResponseDto> data = null;
+		
+		User user = userRepository.findByEmail(email);
+		if (user == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_USER, null);
+		
+		Board board = boardRepository.findByBoardNumber(boardNumber);
+		if (board == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_BOARD, null);
+		if (!board.getWriterEmail().equals(email)) return new ResponseDto<>(false, ResponseMessage.NOT_PERMISSION, null);
+		
+		
+		
+		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
 		
 	}
 }
+
+
+
 
 
 
