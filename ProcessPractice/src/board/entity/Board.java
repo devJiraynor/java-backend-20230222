@@ -152,7 +152,13 @@ public class Board {
 				+ ", likeList=" + likeList + ", commentList=" + commentList + "]";
 	}
 	
+	public void increaseViewCount() {
+		this.viewCount++;
+	}
+	
 }
+
+
 
 
 

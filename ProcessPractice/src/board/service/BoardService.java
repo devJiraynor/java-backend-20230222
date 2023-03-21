@@ -3,10 +3,12 @@ package board.service;
 import java.util.List;
 
 import board.common.constant.ResponseMessage;
+import board.dto.request.board.PatchBoardDto;
 import board.dto.request.board.PostBoardDto;
 import board.dto.response.ResponseDto;
 import board.dto.response.board.GetBoardListResponseDto;
 import board.dto.response.board.GetBoardResponseDto;
+import board.dto.response.board.PatchBoardResponseDto;
 import board.dto.response.board.PostBoardResponseDto;
 import board.entity.Board;
 import board.entity.User;
@@ -50,17 +52,25 @@ public class BoardService {
 	}
 	
 	public ResponseDto<GetBoardResponseDto> getBoard(int boardNumber) {
-		
 		GetBoardResponseDto data = null;
 		
 		Board board = boardRepository.findByBoardNumber(boardNumber);
 		if (board == null) return new ResponseDto<>(false, ResponseMessage.NOT_EXIST_BOARD, null);
 		
+		board.increaseViewCount();
+		boardRepository.save(board);
+		
 		data = new GetBoardResponseDto(board);
 		return new ResponseDto<>(true, ResponseMessage.SUCCESS, data);
-		
 	}
 	
+	public ResponseDto<PatchBoardResponseDto> patchBoard(PatchBoardDto dto) {
+		
+		PatchBoardResponseDto data = null;
+		
+		return new ResponseDto(true, ResponseMessage.SUCCESS, data);
+		
+	}
 }
 
 
